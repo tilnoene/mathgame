@@ -1,0 +1,15 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(54,144,232);
+    background: radial-gradient(circle, rgba(54,144,232,1) 0%, rgba(28,82,227,1) 100%);
+    font-family: 'Lato';
+    color: #333;
+}

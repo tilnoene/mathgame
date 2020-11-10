@@ -1,0 +1,21 @@
+.expression {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.expression p {
+    font-size: 50px;
+    color: white;
+}
+
+.break {
+    height: 0;
+  }
+
+@media screen and (max-width: 728px) {
+    .expression p {
+        font-size: 35px;
+    }
+}

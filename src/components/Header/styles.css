@@ -1,0 +1,17 @@
+#anuncio-header {
+    width: 320px;
+    height: 50px;
+    background: #da552f;
+    font-size: 18px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 728px) {
+    #anuncio-header {
+        width: 728px;
+        height: 90px;
+    }
+}

@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+.main-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 85vh;
+}
+
+.ad {
+  display: flex;
+  justify-content: center;
+}

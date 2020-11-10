@@ -1,0 +1,23 @@
+.ad {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: line;
+    min-height: 85vh;
+    flex-wrap: wrap;
+}
+
+.container p {
+    padding-right: 15px;
+}
+
+@media screen and (max-width: 728px) {
+    .container p {
+        padding-right: 10px;
+    }
+}
