@@ -3,9 +3,17 @@ import React from 'react';
 import "./styles.css";
 
 const PrintQuestion = ( {question} ) => {
+    let op = question.operation;
+
+    if(op === '*'){
+    	op = 'x';
+    } else if(op === '/'){
+    	op = '÷';
+    }
+
     return (
         <div className="expression">
-            <p>{question.a} {question.operation} {question.b} = </p>
+            <p>{question.a} {op} {question.b} = </p>
         </div>
     );
 };
