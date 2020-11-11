@@ -151,7 +151,7 @@ function Input() {
         e.target.value = '';
         acertouQuestao();
 
-        if(acertos >= 1){
+        if(acertos >= 8){
           let date = new Date();
           let tempoFinal = parseInt(date.getTime() / 1000);
 
