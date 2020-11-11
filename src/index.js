@@ -24,15 +24,15 @@ var operacoes = ['+', '-', '*', '/'];
 
 function geraQuestao(a, b, operacao){
 
-if(operacao === '+'){
-  return a + b;
-} else if(operacao === '-'){
-  return a - b;
-} else if(operacao === '*'){
-  return a * b;
-} else if(operacao === '/'){
-  return a / b;
-}
+  if(operacao === '+'){
+    return a + b;
+  } else if(operacao === '-'){
+    return a - b;
+  } else if(operacao === '*'){
+    return a * b;
+  } else if(operacao === '/'){
+    return a / b;
+  }
 
 }
 
@@ -119,7 +119,7 @@ function Input() {
   return (
     <div className="container">
       <PrintQuestion question={questaoAtual} />
-      <input type="text" inputMode="numeric" id="user-answer" className={'accepted'} onKeyDown={keyPress} /> 
+      <input type="text" inputMode="numeric" id="user-answer" autoComplete="off" className={'accepted'} onKeyDown={keyPress} /> 
     </div>
   );
 }

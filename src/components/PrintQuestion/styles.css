@@ -8,11 +8,8 @@
 .expression p {
     font-size: 50px;
     color: white;
+    text-shadow: 2.5px 2.5px rgba(50, 50, 50, 0.75);
 }
-
-.break {
-    height: 0;
-  }
 
 @media screen and (max-width: 728px) {
     .expression p {
