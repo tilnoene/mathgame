@@ -91,24 +91,31 @@ body {
 }
 
 @keyframes error {
-    from {background: red}
-    to {background: #999999}
+    from {background:#c23030}
+    to {background: rgba(255, 255, 255, 0.75)}
 }
 
 @keyframes error2 {
-    from {background: red}
-    to {background: #999999}
+    from {background: #c23030}
+    to {background: rgba(255, 255, 255, 0.75)}
 }
   
 @keyframes accepted {
-    from {background: green}
-    to {background: #999999}
+    from {background: #30c230}
+    to {background:rgba(255, 255, 255, 0.75)}
 }
 
 @keyframes accepted2 {
-    from {background: green}
-    to {background: #999999}
+    from {background: #30c230}
+    to {background: rgba(255, 255, 255, 0.75)}
 }
+
+.logo {
+    font-family: 'Luckiest Guy';
+    font-size: 50px;
+    color: white;
+    text-shadow: 2.3px 2px #333333;
+  }
 
 /* Finish Screen */
 .main-menu {
@@ -145,6 +152,13 @@ body {
     color: white;
     padding: 5px 0;
     font-size: 15px;
+}
+
+.contador {
+    font-family: 'Luckiest Guy';
+    font-size: 150px;
+    color: white;
+    text-shadow: 4px 4px #333333;
 }
 
 @media screen and (max-width: 400px) {

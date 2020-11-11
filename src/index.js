@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './styles.css';
 
 // pages
-import MainMenu from './pages/MainMenu';
+//import MainMenu from './pages/MainMenu';
 
 // simple components
 import Header from './components/Header';
@@ -87,7 +87,6 @@ function geraQuestoes(nivel=3, quantidade=8){
 }
 
 function createTime(seconds) {
-  console.log(seconds);
   if(seconds < 60){
     return seconds + 's';
   } else{
@@ -95,9 +94,25 @@ function createTime(seconds) {
   }
 }
 
+function geraPontos(erros, segundos) {
+  if(erros == 0){
+    erros = 1;
+  }
+
+  console.log((erros / segundos)*10);
+  return parseInt((erros / segundos) * 10);
+}
+
 function Input() {
+  const [tempoInicial,setTempoInicial] = useState(0);
+  
+  if(tempoInicial === 0){
+    let date = new Date();
+    setTempoInicial(parseInt(date.getTime() / 1000));
+  }
+
   const [erros,setErros] = useState(0);
-  const [acertos,setAcertos] = useState(0);
+  const [acertos,setAcertos] = useState(1);
   const [questaoAtual,setQuestao] = useState(geraQuestoes(2, 1));
   const [styles,setStyles] = useState("");
 
@@ -105,7 +120,7 @@ function Input() {
 
     setAcertos(acertos + 1);
 
-    if(styles == "accepted") {
+    if(styles === "accepted") {
       setStyles("accepted2");
     } else {
       setStyles("accepted");
@@ -117,7 +132,7 @@ function Input() {
 
     setErros(erros + 1);
 
-    if(styles == "error") {
+    if(styles === "error") {
       setStyles("error2");
     } else {
       setStyles("error");
@@ -136,9 +151,18 @@ function Input() {
         e.target.value = '';
         acertouQuestao();
 
-        if(acertos >= 8){
-          // tela final e tal
-          alert('FIM');
+        if(acertos >= 1){
+          let date = new Date();
+          let tempoFinal = parseInt(date.getTime() / 1000);
+
+          console.log(tempoInicial, tempoFinal);
+
+          ReactDOM.render(
+            <React.StrictMode>
+              <FinishScreen dados={{pontos: geraPontos(erros, tempoFinal - tempoInicial), acertos: acertos, erros: erros, segundos: tempoFinal - tempoInicial}}/>
+            </React.StrictMode>,
+            document.getElementById('root')
+          );
 
         } else{
           atualizaQuestao();
@@ -149,7 +173,6 @@ function Input() {
         errouQuestao();
       }
 
-      console.log(styles, acertos, erros);
     }
 
   }
@@ -195,7 +218,7 @@ function FinishScreen( {dados} ) {
       <div className="jogar-novamente">
         <Button 
           styles="btn"
-          onClick='teste()'
+          onClick={iniciarJogo}
           title="Jogar Novamente"
         />
 
@@ -205,30 +228,79 @@ function FinishScreen( {dados} ) {
   );
 }
 
-let a = 3;
+function Contador( {num} ) {
+  return (
+    <div className="GameScreen">
+      <div className="ad">
+        <Header />
+      </div>
 
-  if(a === 1){
+      <div className="container">
+        <p className="contador">{num}</p>
+      </div> 
+
+    </div>
+  );
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function iniciarJogo()  {
+  
+  for(let i = 3; i >= 1; i--){
     ReactDOM.render(
       <React.StrictMode>
-        <MainMenu />
+        <Contador num={i}/>
       </React.StrictMode>,
       document.getElementById('root')
     );
-  } else if (a === 2){
-    ReactDOM.render(
-      <React.StrictMode>
-        <GameScreen />
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
-  } else {
-    ReactDOM.render(
-      <React.StrictMode>
-        <FinishScreen dados={{pontos: 329, acertos: 8, erros: 10, segundos: 119}}/>
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
+
+    await sleep(1000);
   }
+  
+  ReactDOM.render(
+    <React.StrictMode>
+      <GameScreen />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+  
+}
+
+const MainMenu = () => (
+  <div className="MainMenu">
+    <div className="ad">
+      <Header />
+    </div> 
+    
+    <div className="main-menu">
+
+      <p className="logo">SpeedCalc</p>
+
+      <Button 
+        styles="btn"
+        onClick={iniciarJogo}
+        title="Um jogador"
+      />
+
+      <Button 
+        styles="btn"
+        title="Multiplayer"
+        disabled={true}
+      />
+    </div>
+
+  </div>
+);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <MainMenu />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
