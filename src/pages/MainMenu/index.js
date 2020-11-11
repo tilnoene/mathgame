@@ -10,6 +10,9 @@ const MainMenu = () => (
     </div> 
     
     <div className="main-menu">
+
+      <p className="logo">SpeedCalc</p>
+
       <Button 
         styles="btn"
         onClick='teste()'

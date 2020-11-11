@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 //import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -11,6 +11,7 @@ import MainMenu from './pages/MainMenu';
 // simple components
 import Header from './components/Header';
 import PrintQuestion from './components/PrintQuestion';
+import Button from './components/Button';
 
 // funcoes gerais
 function getRandomInt(min, max) {
@@ -85,46 +86,83 @@ function geraQuestoes(nivel=3, quantidade=8){
   return questoes;
 }
 
-function Input() { 
-  var players = [
-    {acertos: 0, erros: 0}, // player 1
-  ];
+function createTime(seconds) {
+  console.log(seconds);
+  if(seconds < 60){
+    return seconds + 's';
+  } else{
+    return parseInt(seconds / 60) + 'min ' + seconds % 60 + 's';
+  }
+}
 
-  let questaoAtual = geraQuestoes(2, 1);
+function Input() {
+  const [erros,setErros] = useState(0);
+  const [acertos,setAcertos] = useState(0);
+  const [questaoAtual,setQuestao] = useState(geraQuestoes(2, 1));
+  const [styles,setStyles] = useState("");
+
+  function acertouQuestao() {
+
+    setAcertos(acertos + 1);
+
+    if(styles == "accepted") {
+      setStyles("accepted2");
+    } else {
+      setStyles("accepted");
+    }
+
+  }
+
+  function errouQuestao() {
+
+    setErros(erros + 1);
+
+    if(styles == "error") {
+      setStyles("error2");
+    } else {
+      setStyles("error");
+    }
+  }
+
+  function atualizaQuestao(){
+    setQuestao(geraQuestoes(2, 1));
+  }
 
   function keyPress(e){
+
     if(e.keyCode === 13){
-      console.log('value', e.target.value, players[0].acertos, players[0].erros, questaoAtual);
 
       if(parseInt(e.target.value) === questaoAtual.answer){
         e.target.value = '';
-        players[0].acertos++;
+        acertouQuestao();
 
-        if(players[0].acertos >= 8){
+        if(acertos >= 8){
           // tela final e tal
           alert('FIM');
 
         } else{
-          // atualiza questão
-          questaoAtual = geraQuestoes(2, 1);
+          atualizaQuestao();
         }
         
       } else{
         e.target.value = '';
-        players[0].erros++;
+        errouQuestao();
       }
+
+      console.log(styles, acertos, erros);
     }
+
   }
 
   return (
     <div className="container">
       <PrintQuestion question={questaoAtual} />
-      <input type="text" inputMode="numeric" id="user-answer" autoComplete="off" className={'accepted'} onKeyDown={keyPress} /> 
+      <input type="text" inputMode="numeric" id="user-answer" autoComplete="off" maxLength={4} className={styles} onKeyDown={keyPress} /> 
     </div>
   );
 }
 
-function GameScreen(){
+function GameScreen() {
   return (
     <div className="GameScreen">
       <div className="ad">
@@ -139,7 +177,35 @@ function GameScreen(){
   );
 }
 
-let a = 0;
+function FinishScreen( {dados} ) {
+  return (
+    <div className="FinishScreen">
+
+      <div className="ad">
+        <Header />
+      </div>
+
+      <div className="finish-menu">
+        <p className="pontuacao">{dados.pontos} Pontos</p>
+        <p className="estatisticas">Acertos: {dados.acertos} - Erros: {dados.erros}</p>
+        <p className="estatisticas">Tempo: {createTime(dados.segundos)}</p>
+        
+      </div>
+
+      <div className="jogar-novamente">
+        <Button 
+          styles="btn"
+          onClick='teste()'
+          title="Jogar Novamente"
+        />
+
+      </div>
+
+    </div>
+  );
+}
+
+let a = 3;
 
   if(a === 1){
     ReactDOM.render(
@@ -148,10 +214,17 @@ let a = 0;
       </React.StrictMode>,
       document.getElementById('root')
     );
-  } else{
+  } else if (a === 2){
     ReactDOM.render(
       <React.StrictMode>
         <GameScreen />
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  } else {
+    ReactDOM.render(
+      <React.StrictMode>
+        <FinishScreen dados={{pontos: 329, acertos: 8, erros: 10, segundos: 119}}/>
       </React.StrictMode>,
       document.getElementById('root')
     );

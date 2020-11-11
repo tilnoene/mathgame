@@ -9,8 +9,6 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-
-
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +19,7 @@
 body {
     background: rgb(54,144,232);
     background: radial-gradient(circle, rgba(54,144,232,1) 0%, rgba(28,82,227,1) 100%);
+    /*background: linear-gradient(to right, #E55D87, #5FC3E4);*/
     font-family: 'Lato';
     color: #333;
 }
@@ -45,10 +44,20 @@ body {
     padding-right: 15px;
 }
 
-@media screen and (max-width: 728px) {
-    .container p {
-        padding-right: 10px;
-    }
+.container-finish {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: line;
+    min-height: 65vh;
+    flex-wrap: wrap;
+    font-family: 'Balsamiq Sans';
+}
+
+.jogar-novamente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Input */
@@ -65,21 +74,28 @@ body {
     box-shadow: 4px 4px rgba(50, 50, 50, 0.75);
 }
 
-@media screen and (max-width: 728px) {
-    #user-answer {
-        font-size: 35px;
-    }
-}
-
 .accepted {
 	animation: accepted 1.5s 1;
+}
+
+.accepted2 {
+	animation: accepted2 1.5s 1;
 }
 
 .error {
 	animation: error 1.5s 1;
 }
 
+.error2 {
+    animation: error2 1.5s 1;
+}
+
 @keyframes error {
+    from {background: red}
+    to {background: #999999}
+}
+
+@keyframes error2 {
     from {background: red}
     to {background: #999999}
 }
@@ -87,4 +103,66 @@ body {
 @keyframes accepted {
     from {background: green}
     to {background: #999999}
+}
+
+@keyframes accepted2 {
+    from {background: green}
+    to {background: #999999}
+}
+
+/* Finish Screen */
+.main-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 85vh;
+}
+
+.finish-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 65vh;
+}
+  
+.ad {
+    display: flex;
+    justify-content: center;
+}
+
+.pontuacao {
+    font-family: 'Luckiest Guy';
+    font-size: 50px;
+    color: white;
+    text-shadow: 2.3px 2px #333333;
+    padding-top: 25px;
+    padding-bottom: 6px;
+}
+
+.estatisticas {
+    color: white;
+    padding: 5px 0;
+    font-size: 15px;
+}
+
+@media screen and (max-width: 400px) {
+    .jogar-novamente {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 728px) {
+    .container p {
+        padding-right: 10px;
+    }
+
+    #user-answer {
+        font-size: 35px;
+    }
+
+    .finish-menu {
+        min-height: 75vh;
+    }
 }
