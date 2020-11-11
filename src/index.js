@@ -105,7 +105,7 @@ function geraPontos(erros, segundos) {
 
 function Input() {
   const [tempoInicial,setTempoInicial] = useState(0);
-  
+
   if(tempoInicial === 0){
     let date = new Date();
     setTempoInicial(parseInt(date.getTime() / 1000));
