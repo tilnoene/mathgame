@@ -98,8 +98,13 @@ function geraPontos(erros, segundos) {
   let tot = 100;
 
   let penalidade = parseInt(erros * 1.5) + segundos;
+  let pontos = (tot - penalidade) * 10;
 
-  return (tot - penalidade) * 10;
+  if(pontos < 0){
+    pontos = 0;
+  }
+
+  return pontos;
 }
 
 function Input() {
