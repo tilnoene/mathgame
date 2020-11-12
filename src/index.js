@@ -37,10 +37,10 @@ function geraQuestao(a, b, operacao){
 
 }
 
-function geraQuestoes(nivel=3, quantidade=8){
+function geraQuestoes(nivel, quantidade=8){
   let minV = 2;
   let maxV = 9;
-
+  
   let minOperacoes = 0;
   let maxOperacoes = 3;
 
@@ -107,7 +107,7 @@ function geraPontos(erros, segundos) {
   return pontos;
 }
 
-function Input() {
+function Input( {nivel} ) {
   const [tempoInicial,setTempoInicial] = useState(0);
 
   if(tempoInicial === 0){
@@ -117,7 +117,7 @@ function Input() {
 
   const [erros,setErros] = useState(0);
   const [acertos,setAcertos] = useState(1);
-  const [questaoAtual,setQuestao] = useState(geraQuestoes(2, 1));
+  const [questaoAtual,setQuestao] = useState(geraQuestoes(nivel, 1));
   const [styles,setStyles] = useState("");
 
   function acertouQuestao() {
@@ -144,7 +144,7 @@ function Input() {
   }
 
   function atualizaQuestao(){
-    setQuestao(geraQuestoes(2, 1));
+    setQuestao(geraQuestoes(nivel, 1));
   }
 
   function keyPress(e){
@@ -159,11 +159,11 @@ function Input() {
           let date = new Date();
           let tempoFinal = parseInt(date.getTime() / 1000);
 
-          console.log(tempoInicial, tempoFinal);
+          //console.log(tempoInicial, tempoFinal);
 
           ReactDOM.render(
             <React.StrictMode>
-              <FinishScreen dados={{pontos: geraPontos(erros, tempoFinal - tempoInicial), acertos: acertos, erros: erros, segundos: tempoFinal - tempoInicial}}/>
+              <FinishScreen nivel={nivel} dados={{pontos: geraPontos(erros, tempoFinal - tempoInicial), acertos: acertos, erros: erros, segundos: tempoFinal - tempoInicial}}/>
             </React.StrictMode>,
             document.getElementById('root')
           );
@@ -192,7 +192,7 @@ function Input() {
   );
 }
 
-function GameScreen() {
+function GameScreen( {nivel} ) {
   return (
     <div className="GameScreen">
       <div className="ad">
@@ -200,14 +200,14 @@ function GameScreen() {
       </div>
 
       <div className="container">
-        <Input />
+        <Input nivel={nivel}/>
       </div> 
 
     </div>
   );
 }
 
-function FinishScreen( {dados} ) {
+function FinishScreen( {dados}, nivel ) {
   return (
     <div className="FinishScreen">
 
@@ -254,7 +254,19 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function iniciarJogo()  {
+function iniciarJogoFacil() {
+  iniciarJogo(1);
+}
+
+function iniciarJogoMedio() {
+  iniciarJogo(2);
+}
+
+function iniciarJogoDificil() {
+  iniciarJogo(3);
+}
+
+async function iniciarJogo( nivel )  {
   
   for(let i = 3; i >= 1; i--){
     ReactDOM.render(
@@ -269,11 +281,48 @@ async function iniciarJogo()  {
   
   ReactDOM.render(
     <React.StrictMode>
-      <GameScreen />
+      <GameScreen nivel={ nivel }/>
     </React.StrictMode>,
     document.getElementById('root')
   );
   
+}
+
+const TelaEscolherModoDeJogo = () => (
+  <div>
+    <div className="ad">
+      <Header />
+    </div>
+
+    <div className="main-menu">
+      <Button 
+        styles="btn"
+        onClick={iniciarJogoFacil}
+        title="Fácil"
+      />
+
+      <Button 
+        styles="btn"
+        onClick={iniciarJogoMedio}
+        title="Médio"
+      />
+
+      <Button 
+        styles="btn"
+        onClick={iniciarJogoDificil}
+        title="Difícil"
+      />
+    </div>
+  </div>
+);
+
+function EscolherModoDeJogo() {
+  ReactDOM.render(
+    <React.StrictMode>
+      <TelaEscolherModoDeJogo />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 }
 
 const MainMenu = () => (
@@ -288,7 +337,7 @@ const MainMenu = () => (
 
       <Button 
         styles="btn"
-        onClick={iniciarJogo}
+        onClick={EscolherModoDeJogo}
         title="Um jogador"
       />
 
