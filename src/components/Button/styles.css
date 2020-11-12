@@ -1,7 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
 .btn {
     border: none;
-    font-family: inherit;
-    font-size: inherit;
+    font-family: 'Lato';
+    font-size: 15px;
     color: inherit;
     background: none;
     cursor: pointer;
@@ -21,6 +23,12 @@
     -moz-transition: none;
     transition: none;
     border-radius: 25px;
+}
+
+@media screen and (max-width: 400px) {
+    .btn{
+        font-size: 12px;
+    }
 }
 
 .btn:after {
