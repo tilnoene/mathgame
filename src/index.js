@@ -163,7 +163,7 @@ function Input( {nivel} ) {
 
           ReactDOM.render(
             <React.StrictMode>
-              <FinishScreen nivel={nivel} dados={{pontos: geraPontos(erros, tempoFinal - tempoInicial), acertos: acertos, erros: erros, segundos: tempoFinal - tempoInicial}}/>
+              <FinishScreen dados={{nivel: nivel, pontos: geraPontos(erros, tempoFinal - tempoInicial), acertos: acertos, erros: erros, segundos: tempoFinal - tempoInicial}}/>
             </React.StrictMode>,
             document.getElementById('root')
           );
@@ -207,7 +207,15 @@ function GameScreen( {nivel} ) {
   );
 }
 
-function FinishScreen( {dados}, nivel ) {
+function FinishScreen( {dados} ) {
+  let modo = iniciarJogoFacil;
+
+  if(dados.nivel === 2){
+    modo = iniciarJogoMedio;
+  } else if(dados.nivel === 3){
+    modo = iniciarJogoDificil;
+  }
+
   return (
     <div className="FinishScreen">
 
@@ -225,7 +233,7 @@ function FinishScreen( {dados}, nivel ) {
       <div className="jogar-novamente">
         <Button 
           styles="btn"
-          onClick={iniciarJogo}
+          onClick={modo}
           title="Jogar Novamente"
         />
 
