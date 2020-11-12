@@ -95,12 +95,11 @@ function createTime(seconds) {
 }
 
 function geraPontos(erros, segundos) {
-  if(erros == 0){
-    erros = 1;
-  }
+  let tot = 100;
 
-  console.log((erros / segundos)*10);
-  return parseInt((erros / segundos) * 10);
+  let penalidade = parseInt(erros * 1.5) + segundos;
+
+  return (tot - penalidade) * 10;
 }
 
 function Input() {
