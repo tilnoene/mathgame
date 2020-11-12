@@ -182,9 +182,12 @@ function Input() {
   }
 
   return (
-    <div className="container">
-      <PrintQuestion question={questaoAtual} />
-      <input type="text" inputMode="numeric" id="user-answer" autoComplete="off" maxLength={4} className={styles} onKeyDown={keyPress} /> 
+    <div className="">
+      <div className="container-questao numeracao">{acertos} / 8</div>
+      <div className="container-questao">
+        <PrintQuestion question={questaoAtual} />
+        <input type="text" inputMode="numeric" id="user-answer" autoComplete="off" maxLength={4} className={styles} onKeyDown={keyPress} /> 
+      </div>
     </div>
   );
 }
