@@ -86,11 +86,11 @@ function geraQuestoes(nivel, quantidade=8){
   return questoes;
 }
 
-function createTime(seconds) {
-  if(seconds < 60){
-    return seconds + 's';
+function createTime(miliseconds) {
+  if(miliseconds < 60000){
+    return parseInt(miliseconds / 1000) + 's ' + parseInt((miliseconds % 1000) / 10) + 'ms';
   } else{
-    return parseInt(seconds / 60) + 'min ' + seconds % 60 + 's';
+    return parseInt(miliseconds / 60000) + 'min ' + miliseconds % 60000 + 's';
   }
 }
 
@@ -112,7 +112,7 @@ function Input( {nivel} ) {
 
   if(tempoInicial === 0){
     let date = new Date();
-    setTempoInicial(parseInt(date.getTime() / 1000));
+    setTempoInicial(parseInt(date.getTime()));
   }
 
   const [erros,setErros] = useState(0);
@@ -157,7 +157,7 @@ function Input( {nivel} ) {
 
         if(acertos >= 8){
           let date = new Date();
-          let tempoFinal = parseInt(date.getTime() / 1000);
+          let tempoFinal = parseInt(date.getTime());
 
           //console.log(tempoInicial, tempoFinal);
 
@@ -258,10 +258,6 @@ function Contador( {num} ) {
   );
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function iniciarJogoFacil() {
   iniciarJogo(1);
 }
@@ -272,6 +268,14 @@ function iniciarJogoMedio() {
 
 function iniciarJogoDificil() {
   iniciarJogo(3);
+}
+
+function naoDisponivel() {
+  return;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function iniciarJogo( nivel )  {
@@ -317,8 +321,9 @@ const TelaEscolherModoDeJogo = () => (
 
       <Button 
         styles="btn"
-        onClick={iniciarJogoDificil}
+        onClick={naoDisponivel}
         title="Difícil"
+        disabled={true}
       />
     </div>
   </div>
