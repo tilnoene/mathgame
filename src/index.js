@@ -96,19 +96,30 @@ function createTime(miliseconds) {
 
 function geraPontos(erros, segundos) {
   let tot = 1000;
+  let pontos = 0;
+  let penalidade = 0;
 
   //console.log(parseInt((segundos % 1000) / 100));
-
-  let penalidade = parseInt(erros * 15) + parseInt(segundos / 10) + (10 - parseInt((segundos % 1000) / 100));
-  let pontos = (tot - penalidade);
+  if(segundos <= 7000){
+    penalidade = parseInt(erros * 15) + parseInt(segundos / 10) + (10 - parseInt((segundos % 1000) / 100));
+    pontos = (tot - penalidade) * 3.5;
+  } else{
+    penalidade = (parseInt(erros * 1.5) + parseInt(segundos / 1000));
+    tot /= 10;
+    pontos = (tot - penalidade) * 10;
+  }
 
   if(pontos < 0){
     pontos = 0;
   }
 
-  return parseInt(pontos * 3.5);
+  return parseInt(pontos);
 }
-
+/*
+for(let i = 1000; i <= 90000; i += 1000){
+  console.log(geraPontos(0, i));
+}
+*/
 function Input( {nivel} ) {
   const [tempoInicial,setTempoInicial] = useState(0);
 
