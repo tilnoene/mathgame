@@ -9,7 +9,7 @@ import './styles.css';
 //import MainMenu from './pages/MainMenu';
 
 // simple components
-import Header from './components/Header';
+//import Header from './components/Header';
 import PrintQuestion from './components/PrintQuestion';
 import Button from './components/Button';
 
@@ -208,9 +208,7 @@ function Input( {nivel} ) {
 function GameScreen( {nivel} ) {
   return (
     <div className="GameScreen">
-      <div className="ad">
-        <Header />
-      </div>
+      
 
       <div className="container">
         <Input nivel={nivel}/>
@@ -232,9 +230,7 @@ function FinishScreen( {dados} ) {
   return (
     <div className="FinishScreen">
 
-      <div className="ad">
-        <Header />
-      </div>
+      
 
       <div className="finish-menu">
         <p className="pontuacao">{dados.pontos} Pontos</p>
@@ -259,9 +255,7 @@ function FinishScreen( {dados} ) {
 function Contador( {num} ) {
   return (
     <div className="GameScreen">
-      <div className="ad">
-        <Header />
-      </div>
+      
 
       <div className="container">
         <p className="contador">{num}</p>
@@ -315,9 +309,6 @@ async function iniciarJogo( nivel )  {
 
 const TelaEscolherModoDeJogo = () => (
   <div>
-    <div className="ad">
-      <Header />
-    </div>
 
     <div className="main-menu">
       <Button 
@@ -353,9 +344,6 @@ function EscolherModoDeJogo() {
 
 const MainMenu = () => (
   <div className="MainMenu">
-    <div className="ad">
-      <Header />
-    </div> 
     
     <div className="main-menu">
 
